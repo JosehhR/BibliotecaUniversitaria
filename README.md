@@ -29,11 +29,162 @@ class Library:
     def seeBooks(self):
         return tuple(self._catalogo)
 ````
-La clase libreria posee dos atributos los cuales son:  
-**1._catalogo:** un atributo destinado a guardar objetos de clase **Libro** 
-**2._usuarios:** un atributo destinado a guardar objetos de clase **Usuario** 
-y por otro lado, posee 4 metodos para administar estos atributos:
-**1.addUser:** que recibe 3 variables, **n** para el nombre del usuario, **e** para la edad del usuario, y **c** para la carrera de este. Usando estos tres, crea un objeto de clase **Usuario** y lo agrega a **_usuarios**
-**2.addBook:** que recibe 2 variables, **t** para el titulo de este y **cat** para la categoria del libro. Usando estos tres, crea un objeto de clase **Libro** y lo agrega a **_catalogo**
-**3.seeUsers:** que regresa una tupla del atributo **_usuarios**
-**4.seeBooks** que regresa una tupla del atributo **_libros**
+
+### Clase Libro 📖
+```python
+class Book:
+    def __init__(self, titulo, categoria):
+        self._titulo = titulo
+        self._categoria = categoria
+
+    @property
+    def titulo(self):
+        return self._titulo
+
+    @titulo.setter
+    def titulo(self, v):
+        if isinstance(v, str):
+            self._titulo = v
+        else:
+            raise TypeError("El título debe ser de tipo string")
+
+    @property
+    def categoria(self):
+        return self._categoria
+
+    @categoria.setter
+    def categoria(self, v):
+        if isinstance(v, str):
+            self._categoria = v
+        else:
+            raise TypeError("La categoría debe ser de tipo string")
+```
+
+### Clase Usuario 👤
+```python
+class User:
+    def __init__(self, nombre, edad, carrera):
+        self._nombre = nombre
+        self._edad = edad
+        self._carrera = carrera
+
+    @property
+    def nombre(self):
+        return self._nombre
+
+    @nombre.setter
+    def nombre(self, v):
+        if isinstance(v, str):
+            self._nombre = v
+        else:
+            raise TypeError("La propiedad nombre debe ser de tipo string")
+
+    @property
+    def edad(self):
+        return self._edad
+
+    @edad.setter
+    def edad(self, v):
+        if isinstance(v, int):
+            self._edad = v
+        else:
+            raise TypeError("La propiedad edad debe ser de tipo entero")
+
+    @property
+    def carrera(self):
+        return self._carrera
+
+    @carrera.setter
+    def carrera(self, v):
+        if isinstance(v, str):
+            self._carrera = v
+        else:
+            raise TypeError("La propiedad carrera debe ser de tipo string")
+```
+
+---
+
+## 📌 Casos de Uso
+
+A continuación, algunos ejemplos de cómo podría usarse el simulador:
+
+### 1. Registrar usuarios en la biblioteca
+```python
+libreria = Library()
+
+libreria.addUser("Ana Gómez", 20, "Ingeniería")
+libreria.addUser("Luis Torres", 22, "Derecho")
+
+print("Usuarios registrados:")
+for u in libreria.seeUsers():
+    print(f"Nombre: {u.nombre}, Edad: {u.edad}, Carrera: {u.carrera}")
+```
+
+**Salida esperada:**
+```
+Usuarios registrados:
+Nombre: Ana Gómez, Edad: 20, Carrera: Ingeniería
+Nombre: Luis Torres, Edad: 22, Carrera: Derecho
+```
+
+---
+
+### 2. Agregar libros al catálogo
+```python
+libreria.addBook("Cálculo Integral", "Matemáticas")
+libreria.addBook("Introducción al Derecho", "Derecho")
+
+print("\nCatálogo de libros:")
+for b in libreria.seeBooks():
+    print(f"Título: {b.titulo}, Categoría: {b.categoria}")
+```
+
+**Salida esperada:**
+```
+Catálogo de libros:
+Título: Cálculo Integral, Categoría: Matemáticas
+Título: Introducción al Derecho, Categoría: Derecho
+```
+
+---
+
+### 3. Validación de tipos de datos
+El uso de **properties** asegura que se ingresen datos correctos:
+```python
+try:
+    libreria.addUser("Pedro", "veinte", "Ingeniería")
+except TypeError as e:
+    print("Error:", e)
+```
+
+**Salida esperada:**
+```
+Error: La propiedad edad debe ser de tipo entero
+```
+
+---
+
+### 4. Visualizar listas completas
+```python
+print("Usuarios:", libreria.seeUsers())
+print("Libros:", libreria.seeBooks())
+```
+
+Esto permite ver todas las instancias registradas.
+
+---
+
+✅ Con estos casos de uso se demuestra la creación de objetos, encapsulamiento y manejo básico de operaciones típicas en una biblioteca universitaria.
+
+---
+
+## 🛠️ Tecnologías Usadas
+- **Lenguaje:** Python 3.12  
+- **Paradigma:** Programación Orientada a Objetos (POO)  
+- **Entorno de desarrollo:** VS Code / Terminal de Python  
+- **Control de versiones:** Git y GitHub para almacenar y versionar el proyecto  
+
+---
+
+## 💡 Notas para el Futuro
+- Evitar mezclar **nombres en inglés y español** en el código. Esto mejora la **legibilidad**, la **consistencia** y facilita la colaboración con otros desarrolladores.  
